@@ -22,17 +22,18 @@ int  menu_select(); struct book *find(char *s);
 
 int main()
 {setlocale (0, "Rus");
-    head = tail = NULL;  /* инициализация указателей на начало и конец */
+      cout << " \t\t\t Меню:"<<endl;
+    head = tail = NULL;  
       for(;;)
       {
         switch(menu_select()) {
-          case 1: input(); /* ввод адреса */
+          case 1: input();
             break;
-          case 2: del(&head); /* удаление адреса */
+          case 2: del(&head);
             break;
-          case 3: list(); /* отображение списка */
+          case 3: list(); 
             break;
-          case 4: search(); /* поиск адреса */
+          case 4: search();
             break;
           case 5: exit(0);
         }
@@ -62,7 +63,7 @@ int  menu_select(void)
 /* Ввод имени и адресов. */
 void input()
 {struct book *i;
-
+cout << "Введите 0 для выхода из формы ввода:"<<endl;
   for(;;) {
     i = (struct book *)malloc(sizeof(struct book));
     if(!i) {
@@ -77,8 +78,7 @@ void input()
     i->number= a;
 
     if(i->number == 0) break;
-    /* завершить ввод */
-
+   
     cout << "Введите название книги:"<<endl;
     cin >> i->title;
 
@@ -90,7 +90,6 @@ void input()
     i->year = a;
 
     if(i->year == 0) break;
-    /* завершить ввод */
 
     cout << "Введите количество книг:"<<endl;
     cin>>a;
@@ -100,7 +99,6 @@ void input()
   }
 }
 
-/* Создание упорядоченного односвязного списка. */
 void store(struct book *i, struct book **head, struct book **tail)
 {
     struct book *old, *p;
@@ -108,7 +106,7 @@ void store(struct book *i, struct book **head, struct book **tail)
     p = *head;
 
     if(!*tail)
-    { /* первый элемент в списке */
+    { 
         i->next = NULL;
         *tail = i;
         *head = i;
@@ -125,22 +123,21 @@ void store(struct book *i, struct book **head, struct book **tail)
     else
     {
       if(old)
-      { /* вставка в середину */
+      { 
         old->next = i;
         i->next = p;
         return;
       }
-      i->next = p; /* вставка в начало */
+      i->next = p; 
       *head = i;
       return;
     }
   }
-  (*tail)->next = i; /* вставка в конец */
+  (*tail)->next = i; /
   i->next = NULL;
   *tail = i;
 }
 
-/* Удаление элемента из списка. */
 void del(struct book **head)
 {
     struct book *i;
@@ -155,14 +152,14 @@ void del(struct book **head)
    {
       while (t->next!=i)
       {
-          t=t->next;  /*ищем предыдущий элемент от удаляемого*/
+          t=t->next; 
       }
-      t->next=i->next; /*предыдущий элемент теперь связан со следующим элементов после удаляемого*/
+      t->next=i->next; 
       delete i;
   }
   else if (i==*head)
   {
-      *head=(*head)->next; //?????
+      *head=(*head)->next; 
       delete i;
   }
 }
@@ -197,19 +194,17 @@ struct book *find(char *s)
   return NULL;
 }
 
-/* Отобразить на экране весь список. */
 void list()
 {
   struct book *i;
   i = head;
   while(i) {
     display(i);
-    i = i->next;  /* перейти к следующему адресу */
+    i = i->next; 
   }
  cout <<"\n\n";
 }
 
-/* Данная функция выполняет собственно вывод на экран всех полей записи */
 void display(struct book *i)
 {
     cout << "\n Код УДК: " << i->number;
@@ -221,7 +216,6 @@ void display(struct book *i)
    cout << "\n";
 }
 
-/* Поиск по наличаю книг в списке. */
 void search()
 {
   struct book *i;
